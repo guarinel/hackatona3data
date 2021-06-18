@@ -47,7 +47,7 @@ def retrive_files():
             file_name = file.split('.')[0]
             df = pd.read_csv(file_name + '.txt', sep = ';', encoding='latin-1', low_memory=False, dtype = 'unicode')
             exclude_empty_columns(df)
-#             send_to_s3(df, date, file_name)
+            send_to_s3(df, date, file_name)
             os.remove(file_name + '.txt') 
             keep_connection_alive(date)
 
