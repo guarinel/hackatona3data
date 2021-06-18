@@ -75,10 +75,30 @@ class QueryAthena:
         except Exception as e:
             print(e)  
 
+def concat_df_years(dataframe):
+    dict_first_question = {}
+    dict_second_question = {}
+    dict_third_question = {}
+    dict_forth_question = {}
+
+    for key in dataframe:
+        dict_first_question[key] = dataframe[key]['/answer_1']
+        dict_second_question[key] = dataframe[key]['/answer_2']
+        dict_third_question[key] = dataframe[key]['/answer_3']
+        dict_forth_question[key] = dataframe[key]['/answer_4']
+        
+        
+    pd.concat(dict_first_question).reset_index()[['sexo', 'regiao', '_col2', 'ano']].to_csv('answer_1.csv', index = False)
+    pd.concat(dict_second_question).reset_index()[['escolaridade', 'regiao', '_col1', 'ano']].to_csv('answer_2.csv', index = False)
+    pd.concat(dict_third_question).reset_index()[['soma_admissao', 'soma_demissao', 'cnae_d','qnt_trabalhadores', 'ano', 'setor']].to_csv('answer_3.csv', index = False)
+    pd.concat(dict_forth_question).reset_index()[['sum_less_than_forty', 'cnae_d', 'ano']].to_csv('answer_4.csv', index = False)
+
+
 
 if __name__ == "__main__":       
     dates = [str(date) for date in range(2010,2020)]
     dataframe = {}
+    dataframe_q5 = {}
     for date in dates:
         query = [
                 (base_query_1_layout.format(f"base_query_{date}",date, date), False, ""),
@@ -92,9 +112,14 @@ if __name__ == "__main__":
         qa = QueryAthena(query=query, database='a3datahackaton')
         dataframe[date] = qa.run_query()
         
+    concat_df_years(dataframe)
+    
     for date in ['2018', '2019']:
         query = [(query_q5.format(date, date), True, '/answer_5')]
         qa = QueryAthena(query=query, database='a3datahackaton')
-        dataframe["q5" + date] = qa.run_query()
+        dataframe_q5[date] = qa.run_query()
+
+    pd.concat([dataframe_q5['2018']['/answer_5'],dataframe_q5['2019']['/answer_5']]).to_csv('answer_5.csv', index = False)
+
         
             
