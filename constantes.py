@@ -1,0 +1,12 @@
+escolaridade = {1: 'ANALFABETO',
+ 2: 'ATÉ 5.A INC',
+ 3: '5.A CO FUND',
+ 4: '6. A 9. FUND',
+ 5: 'FUND COMPL',
+6: 'MÉDIO INCOMP',
+ 7: 'MÉDIO COMPL',
+ 8: 'SUP. INCOMP',
+ 9: 'SUP. COMP',
+ 10: 'MESTRADO',
+ 11: 'DOUTORADO',
+ -1: 'IGNORADO'}

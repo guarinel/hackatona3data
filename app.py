@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.graph_objs as go
 import seaborn as sns
 import streamlit as st
+from constantes import *
 
 @st.cache(allow_output_mutation=True)
 def load_train():
@@ -34,42 +35,68 @@ def main():
                         '* [LinkedIn](https://www.linkedin.com/in/luizguarinello/) - '
                         '[GitHub](https://github.com/guarinel')
 
-    df = load_train()
+    dict_final = load_train()
 
-    df = df['0_answer'].drop('Unnamed: 0', axis =1)
+    df = dict_final['0_answer'].drop('Unnamed: 0', axis =1)
 
-    values = df['regiao'].unique()
 
     st.markdown(""" # HACKATON A3DATA
 ## Objetivo:
-Mapear estátisticamente o comportamente dos trabalhadores brasileiros entre 2010 e 2019.
-Fonte de dados: Microsdados Rais - GOV BR
-#### Primeira Perguntas: Salário Médio nos últimos 10 anos de homens e mulheres que trabalham com tecnologia na regiao Sudeste
-Por se tratar de uma área (técnologia) com ampla  interpretacao a metodologia utilizada foi:
+Mapear estatisticamente o comportamento dos trabalhadores brasileiros entre 2010 e 2019.
+Fonte de dados: Microdados Rais - GOV BR
+#### Primeira Pergunta: Salário Médio nos últimos 10 anos de homens e mulheres que trabalham com tecnologia na região Sudeste
+Por se tratar de uma área (tecnologia) com ampla interpretação, a metodologia utilizada foi:
 
-* Cargos com a palavra técnologia no nome 
+* Cargos com a palavra tecnologia no nome 
 
 * Cargos com a palavra computação ou computador 
 
 * Cargos classificados em sistema de informação pelo CBO 2002 
 
-Os ranges finais de CBOs selecionados foram 2032, 2123, 1425 ,317, 201, 212, podendo ser completamente customizável.
+Os ranges finais de CBOs selecionados foram 2032, 2123, 1425 ,317, 201, 212, podendo variar dependendo da necessidade específica.
 
-Gráfixo inicialmente fixo no Sudeste, todas as regiões estão disponíveis para visualização""")
+Gráfico inicialmente fixo no Sudeste, todas as regiões estão disponíveis para visualização""")
 
+    values = ['SUDESTE', 'CENTRO_OESTE', 'NORDESTE', 'NORTE', 'SUL'] #df['regiao'].unique()
 
-    selected_values = st.multiselect("Selecione Regiao",values)
-    if len(selected_values) == 0:
-        selected_values = ['SUDESTE']
-    filtered_df = df[df['regiao'].isin(selected_values)]
+    selected_values = st.selectbox("Selecione Região",values)
+
+    filtered_df = df[df['regiao'] == selected_values]
+
 
     df_men = filtered_df[filtered_df['sexo'] == 1]
     df_women = filtered_df[filtered_df['sexo'] == 2]
 
     trace = go.Bar(x=df_men['ano'] ,y=df_men['_col2'],showlegend = True, name = "Homen")
     trace_ = go.Bar(x=df_women['ano'] ,y=df_women['_col2'],showlegend = True, name = 'Mulher')
-    layout = go.Layout(title = "Salario Medio de pessoas que trabalham com tecnologia")
+    layout = go.Layout(title = "Salário Médio de pessoas que trabalham com tecnologia")
     data = [trace, trace_]
+    fig = go.Figure(data=data,layout=layout)
+    st.plotly_chart(fig)
+
+    st.markdown(""" ### Segunda Pergunta: Salário Médio nos últimos 10 anos de pessoas que trabalham no setor de agronegócio
+A metodologia utilizada foi:
+
+* CNAE 2002 dentro do range 01, 02, 03. na categoria "COLOCAR CATEGORIA" , podendo variar dependendo da necessidade específica.
+
+Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para visualização""")
+
+    df_1 = dict_final['1_answer']
+    for key in escolaridade:
+        df_1.loc[df_1['escolaridade'] == key, "escolaridade"] = escolaridade[key]
+    
+    values_ = [ 'SUL' , 'SUDESTE', 'CENTRO_OESTE', 'NORDESTE', 'NORTE']
+
+    selected_values = st.selectbox("Selecione Região",values_)
+
+    filtered_df = df_1[df_1['regiao'] == selected_values]
+
+    df_grouped = filtered_df.groupby("escolaridade").mean()
+    df_grouped = df_grouped.sort_values(by = '_col1')
+
+    trace = go.Bar(x=df_grouped.index ,y=df_grouped['_col1'],showlegend = True, name = "Escolaridade")
+    layout = go.Layout(title = "Salário Médio de pessoas nos últimos 10 anos por nível de escolaridade")
+    data = [trace]
     fig = go.Figure(data=data,layout=layout)
     st.plotly_chart(fig)
 
