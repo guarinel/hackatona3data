@@ -12,10 +12,10 @@ SELECT '{}' as ano,
     CAST(TRIM("Mês Admissão") as INT) as mes_admissao,
     CAST(TRIM("Mês Desligamento") as INT) as mes_desligamento,
     CASE
-        WHEN "estado" in ('SP', 'ES', 'MG', 'RJ') THEN 'SUDESTE'
-        WHEN "estado" in ('RS', 'SC', 'PR') THEN 'SUL'
-        WHEN "estado" in ('MS', 'MT', 'DF', 'GO') THEN 'CENTRO_OESTE'
-        WHEN "estado" in ('RO', 'AC', 'AM', 'RR', 'AP', 'PA', 'TO') THEN 'NORTE'
+        WHEN "estado" in ('SP', 'ES', 'MG', 'RJ', 'MG_ES_RJ') THEN 'SUDESTE'
+        WHEN "estado" in ('RS', 'SC', 'PR', 'SUL') THEN 'SUL'
+        WHEN "estado" in ('MS', 'MT', 'DF', 'GO', 'CENTRO_OESTE') THEN 'CENTRO_OESTE'
+        WHEN "estado" in ('RO', 'AC', 'AM', 'RR', 'AP', 'PA', 'TO', 'NORTE') THEN 'NORTE'
         ELSE 'NORDESTE'
     END as regiao,
     CASE
