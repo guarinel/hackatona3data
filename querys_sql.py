@@ -3,14 +3,14 @@ CREATE OR REPLACE VIEW {} AS
 SELECT '{}' as ano, 
     "Sexo Trabalhador" as sexo,
     "cbo ocupação 2002" as cbo,
-    CAST(TRIM("Escolaridade após 2005") as int) as escolaridade,
+    CAST(TRIM("Escolaridade após 2005") as INT) as escolaridade,
     "CNAE 2.0 Subclasse" as cnae,
-    CAST(TRIM("FAIXA HORA CONTRAT") as int) as faixa_hora_contr,
-    CAST(TRIM("Qtd Hora Contr") as int) as qntd_hora_contr,
+    CAST(TRIM("FAIXA HORA CONTRAT") as INT) as faixa_hora_contr,
+    CAST(TRIM("Qtd Hora Contr") as INT) as qntd_hora_contr,
     "Motivo Desligamento" as motivo_desligamento,
-    CAST(REPLACE(TRIM("Tempo Emprego"), ',', '.') as double) as tempo_emprego_meses,
-    CAST(TRIM("Mês Admissão") as int) as mes_admissao,
-    CAST(TRIM("Mês Desligamento") as int) as mes_desligamento,
+    CAST(REPLACE(TRIM("Tempo Emprego"), ',', '.') as DOUBLE) as tempo_emprego_meses,
+    CAST(TRIM("Mês Admissão") as INT) as mes_admissao,
+    CAST(TRIM("Mês Desligamento") as INT) as mes_desligamento,
     CASE
         WHEN "estado" in ('SP', 'ES', 'MG', 'RJ') THEN 'SUDESTE'
         WHEN "estado" in ('RS', 'SC', 'PR') THEN 'SUL'
@@ -19,15 +19,15 @@ SELECT '{}' as ano,
         ELSE 'NORDESTE'
     END as regiao,
     CASE
-        WHEN CAST(TRIM("Mês Admissão") as int) > 0 THEN 1
+        WHEN CAST(TRIM("Mês Admissão") as INT) > 0 THEN 1
         ELSE 0
     END as soma_admissao,
     CASE
-        WHEN CAST(TRIM("Mês Desligamento") as int) > 0 THEN -1
+        WHEN CAST(TRIM("Mês Desligamento") as INT) > 0 THEN -1
         ELSE 0
     END as soma_demissao,
     CASE 
-        WHEN CAST(TRIM("FAIXA HORA CONTRAT") as int) = 6 THEN 0
+        WHEN CAST(TRIM("FAIXA HORA CONTRAT") as INT) = 6 THEN 0
         ELSE 1
     END as count_less_than_forty,
     SUBSTRING("CNAE 2.0 Subclasse",1,2)  as cnae_d,
@@ -45,8 +45,6 @@ third_query_2_layout = """
     SELECT "cnae_d", "ano", SUM("soma_admissao") as soma_admissao, SUM("soma_demissao") as soma_demissao, SUM("count_less_than_forty") as sum_less_than_forty
     FROM "a3datahackaton"."{}"
     GROUP BY "ano" ,"cnae_d"; """
-
-
 
 
 query_q1 = """
@@ -76,3 +74,10 @@ query_q4 = """
         SELECT SUM("sum_less_than_forty") as sum_less_than_forty, "cnae_d", "ano"
         FROM "a3datahackaton"."{}"
         GROUP BY "cnae_d", "ano"; """
+
+query_q5 = """
+    SELECT "Sexo Trabalhador", 
+    '{}' as ano,
+    SUM(CAST(TRIM("ind trab intermitente") as INT)) as soma_intermitente
+    FROM "a3datahackaton"."{}"
+    GROUP BY "Sexo Trabalhador"; """
