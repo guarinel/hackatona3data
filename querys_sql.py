@@ -42,7 +42,7 @@ second_query_1_layout = """
 
 third_query_2_layout = """ 
     CREATE or REPLACE VIEW {} AS
-    SELECT "cnae_d", "ano", SUM("soma_admissao") as soma_admissao, SUM("soma_demissao") as soma_demissao, SUM("count_less_than_forty") as sum_less_than_forty
+    SELECT "cnae_d", "ano", SUM("soma_admissao") as soma_admissao, SUM("soma_demissao") as soma_demissao, SUM("count_less_than_forty") as sum_less_than_forty, COUNT("ano") as qnt_trabalhadores
     FROM "a3datahackaton"."{}"
     GROUP BY "ano" ,"cnae_d"; """
 
@@ -60,7 +60,7 @@ query_q2 = """
         GROUP BY "escolaridade", "regiao", "ano" ;"""
 
 query_q3 = """
-        SELECT "soma_admissao",  "soma_demissao", "cnae_d", "ano",
+        SELECT "soma_admissao",  "soma_demissao", "cnae_d", "ano", "qnt_trabalhadores",
         CASE 
             WHEN "cnae_d" in ('62', '63') THEN 'Tecnologia'
             WHEN "cnae_d" in ('86','87') THEN 'Saude'
