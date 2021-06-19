@@ -101,7 +101,7 @@ Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para vi
     fig = go.Figure(data=data,layout=layout)
     st.plotly_chart(fig)
 
-    st.markdown(""" ### Terceira Pergunta: Entre os setores de tecnologia, industria automobilistica e profissionais da saude, qual teve o maior crescimento? Quantidade de trabalhadores por ano.
+    st.markdown(""" ### Terceira Pergunta: Entre os setores de tecnologia, industria automobilistica e profissionais da saude, qual teve o maior crescimento? Qual quantidade de trabalhadores por ano.
 A metodologia utilizada foi:
 
 * CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
@@ -162,6 +162,41 @@ Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para vi
     st.plotly_chart(fig)
 
     st.markdown(""" ### Observamos tanto em números absolutos quanto relativos, o setor de saúde demonstrou maior crescimento""")
+
+
+    st.markdown(""" ### Quarta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
+A metodologia utilizada foi pegar os grande nove grupos representados pelo primeiro digito do CNAE que são:
+
+* CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
+* CNAE 2002 dentro do range 86 e 87 no de indústria automobilística;
+* CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.
+
+TERMINAR""")
+
+    df_3 = dict_final['3_answer']
+    for tuple_ in range_cnaes:
+        df_3.loc[df_3['cnae_d'].isin([int(x) for x in tuple_[0].split('_')]), 'correspondencia_cnae'] = tuple_[1]
+
+    for ano in df['ano'].unique():
+        print(df_3.loc[df_3['ano'] == ano].groupby('correspondencia_cnae').sum().sort_values(by = 'sum_less_than_forty').iloc[-2:])
+
+
+    st.markdown(""" ### Quinta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
+A metodologia utilizada foi pegar os grande nove grupos representados pelo primeiro digito do CNAE que são:
+
+* CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
+* CNAE 2002 dentro do range 86 e 87 no de indústria automobilística;
+* CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.
+
+TERMINAR""")
+
+    df_3 = dict_final['3_answer']
+    for tuple_ in range_cnaes:
+        df_3.loc[df_3['cnae_d'].isin([int(x) for x in tuple_[0].split('_')]), 'correspondencia_cnae'] = tuple_[1]
+
+    for ano in df['ano'].unique():
+        print(df_3.loc[df_3['ano'] == ano].groupby('correspondencia_cnae').sum().sort_values(by = 'sum_less_than_forty').iloc[-2:])
+
 
 
 if __name__ == '__main__':

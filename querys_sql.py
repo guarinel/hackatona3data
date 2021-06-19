@@ -5,7 +5,6 @@ SELECT '{}' as ano,
     "cbo ocupação 2002" as cbo,
     CAST(TRIM("Escolaridade após 2005") as INT) as escolaridade,
     "CNAE 2.0 Subclasse" as cnae,
-    CAST(TRIM("FAIXA HORA CONTRAT") as INT) as faixa_hora_contr,
     CAST(TRIM("Qtd Hora Contr") as INT) as qntd_hora_contr,
     "Motivo Desligamento" as motivo_desligamento,
     CAST(REPLACE(TRIM("Tempo Emprego"), ',', '.') as DOUBLE) as tempo_emprego_meses,
@@ -27,8 +26,8 @@ SELECT '{}' as ano,
         ELSE 0
     END as soma_demissao,
     CASE 
-        WHEN CAST(TRIM("FAIXA HORA CONTRAT") as INT) = 6 THEN 0
-        ELSE 1
+        WHEN CAST(TRIM("qtd hora contr") as INT) < 40 THEN 1
+        ELSE 0
     END as count_less_than_forty,
     SUBSTRING("CNAE 2.0 Subclasse",1,2)  as cnae_d,
     CAST(REPLACE("vl remun média nom", ',', '.') AS DECIMAL(10,2)) as salario
@@ -38,6 +37,7 @@ second_query_1_layout = """
     CREATE or REPLACE VIEW {} AS
     SELECT "ano", "sexo", "regiao", avg("salario") as media_salario, "cbo", "escolaridade", "cnae"
     FROM "a3datahackaton"."{}"
+    WHERE "salario" > 0    
     GROUP BY "ano", "regiao", "sexo", "cbo", "escolaridade", "cnae"; """
 
 third_query_2_layout = """ 
