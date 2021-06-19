@@ -100,6 +100,17 @@ if __name__ == "__main__":
     dataframe = {}
     dataframe_q5 = {}
     for date in dates:
+        """
+        Construção da lista query
+        Carrega query SQL do arquivo, primeiro parametro do format é o nome da view
+        Segundo parametro é o ano
+        Terceiro parametro é a table original que vem o FROM
+        False indica se é para baixar o resultado csv do s3
+        O último é a pasta caso tenha q salvar 
+
+        As 3 primeiras querys são as views, e as últimas 5 são querys simples, 
+        completamente agrupadas para responder as perguntas do hackaton."""
+
         query = [
                 (base_query_1_layout.format(f"base_query_{date}",date, date), False, ""),
                  (second_query_1_layout.format(f"second_query{date}", f"base_query_{date}"), False, ""),
