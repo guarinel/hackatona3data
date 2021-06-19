@@ -1,0 +1,8 @@
+py7zr
+pandas
+s3fs
+boto3
+streamlit
+numpy
+plotly
+matplotlib
