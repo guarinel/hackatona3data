@@ -203,6 +203,13 @@ def main():
         fig = go.Figure(data=data,layout=layout)
         st.plotly_chart(fig)
 
+    st.markdown(""" ### Considerações: 
+    Para o calculo da média salarial nas duas primeiras perguntas as pessoas com salário igual a zero foram desconsideradas. Calculou-se de ambos os modos, e os resultados foram similares.
+   
+    Outros tipos de análises foram realizadas para checar consistência dos dados. Constantou-se que aproximadamente 3% dos dados não continham com total precisão alguma infomações solicitada no estudo.
+
+    Nesses casos, foram realizados diferentes cenários sempre com valores similares, a escolha final foi não utilizar tais entradas.""")
+
     if option == 'Correspondência':
         st.markdown(""" ### Corresṕondência CNAE:
 
