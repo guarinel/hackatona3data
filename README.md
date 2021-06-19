@@ -9,7 +9,7 @@
  - app.py faz visualização e estrutura dash. 
  
 ## Arquitetura 
- O sistema foi pensado de forma modular. Um serviço focado em extração (send_to_s3.py), toda a parte de parte de transform foi feita em SQL(query_athena 
+ O sistema foi pensado de forma modular. Um serviço focado em extração (send_to_s3.py), toda de parte de transform foi feita em SQL(query_athena 
 + querys_sql.py ), com o objetivo de usar o melhor de cada linguagem. 
 + Python foi usada para conexões entre serviços, automação de processos, análise exploratória e visualização dos dados.
 - As 3 views criadas inicalmente pavimentam toda a estrutura do banco de dados para conseguirmos extrair qualquer informação de forma rápida. 
