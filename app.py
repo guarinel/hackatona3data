@@ -6,12 +6,6 @@ import streamlit as st
 from constantes import *
 
 
-# links = ['https://www.dropbox.com/s/b9op9a9p8on5bxo/answer_1.csv?raw=1', 
-# 'https://www.dropbox.com/s/myvllq0jztm0roh/answer_2.csv?raw=1',
-# 'https://www.dropbox.com/s/353uttxwgroer6w/answer_3.csv?raw=1',
-# 'https://www.dropbox.com/s/379t71mtsm3zmwh/answer_4.csv?raw=1', 
-# 'https://www.dropbox.com/s/idevvpvn9bxfjpc/answer_5.csv?raw=1']
-
 # Fazendo cache dos dados para acelerar as próximas pesquisas.
 @st.cache(allow_output_mutation=True)
 def load_final_dfs():
