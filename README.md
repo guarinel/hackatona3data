@@ -11,7 +11,7 @@
 ## Arquitetura 
  O sistema foi pensado de forma modular. Um serviço focado em extração (send_to_s3.py), quase toda parte de transform foi feita em SQL(query_athena + querys_sql.py ), com o objetivo de usar o melhor de cada linguagem. 
 Python foi usada para conexões entre serviços, automação de processos, análise exploratória e visualização dos dados.
-- As 3 views criadas inicalmente pavimentam toda a estrutura do banco de dados para conseguirmos extrair qualquer informação de forma rápida. 
+- As 3 views criadas inicalmente no querys_sql.py pavimentam toda a estrutura do banco de dados para conseguirmos extrair qualquer informação de forma rápida. 
 
 Foi feita uma análise exploratória dos dados em python, com objetivo de entender a documentação e projetar os serviços necessários. Todo estudo foi relizados apenas em cima do Acre (ou região Norte) em cada um dos diferentes layouts, permitindo que generalizassemos os processos sem necessidade de custo extra com computação.
 
