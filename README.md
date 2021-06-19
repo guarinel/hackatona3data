@@ -1,5 +1,7 @@
 # hackatona3data
 
+## Equipe Mordor
+
 ## Fluxo dos arquivos:
  - send_to_s3.py conecta com FTP do governo, extrai arquivos, converte para .parquet e coloca no s3 separado por ano.
  - query_athena.py é responsável por orgazinar a ordem e referência das querys no athena, conectar com os servicos AWS e salvar os dataframes com resultados finais.
@@ -14,7 +16,6 @@
 
 Foi feita uma análise exploratória dos dados em python, com objetivo de entender a documentação e projetar os serviços necessários. Todo estudo foi relizados apenas em cima do Acre (ou região Norte) em cada um dos diferentes layouts, permitindo que generalizassemos os processos sem necessidade de custo extra com computação.
 
-## Equipe Mordor
 A dashborad pode ser encontrada em https://dash-a3datahackaton.herokuapp.com/.
 
 Luiz Guarinello
