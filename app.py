@@ -79,7 +79,7 @@ def main():
         st.markdown(""" ### Segunda Pergunta: Salário Médio nos últimos 10 anos de pessoas que trabalham no setor de agronegócio
     A metodologia utilizada foi:
 
-    * CNAE 2002 dentro do range 01, 02, 03. na categoria  AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQÜICULTURA , podendo variar dependendo da necessidade específica.
+    * CNAE 2002 dentro do range 01, 02, 03 na categoria  AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQUICULTURA , podendo variar dependendo da necessidade específica.
 
     Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para visualização""")
 
@@ -102,14 +102,12 @@ def main():
         fig = go.Figure(data=data,layout=layout)
         st.plotly_chart(fig)
 
-        st.markdown(""" ### Terceira Pergunta: Entre os setores de tecnologia, industria automobilistica e profissionais da saude, qual teve o maior crescimento? Qual quantidade de trabalhadores por ano.
+        st.markdown(""" ### Terceira Pergunta: Entre os setores de tecnologia, industria automobilística e profissionais da saúde, qual teve o maior crescimento? Qual a quantidade de trabalhadores por ano em cada setor.
     A metodologia utilizada foi:
 
     * CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
     * CNAE 2002 dentro do range 86 e 87 no de indústria automobilística;
-    * CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.
-
-    Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para visualização""")
+    * CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.""")
 
         df_2 = dict_final['2_answer']
         df_2['diff_admi_demi'] = df_2['soma_admissao'] + df_2['soma_demissao'] 
@@ -134,10 +132,10 @@ def main():
         filtered_df_tecn.loc[filtered_df_tecn['setor'] == 'Tecnologia'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]) - 1 
 
 
-        trace_saude = go.Bar(x=filtered_df_saude['ano'] ,y=filtered_df_saude['qnt_trabalhadores'],showlegend = True, name = "Saude")
-        trace_auto = go.Bar(x=filtered_df_auto['ano'] ,y=filtered_df_auto['qnt_trabalhadores'],showlegend = True, name = "Automobilistica")
+        trace_saude = go.Bar(x=filtered_df_saude['ano'] ,y=filtered_df_saude['qnt_trabalhadores'],showlegend = True, name = "Saúde")
+        trace_auto = go.Bar(x=filtered_df_auto['ano'] ,y=filtered_df_auto['qnt_trabalhadores'],showlegend = True, name = "Automobili")
         trace_tech = go.Bar(x=filtered_df_tecn['ano'] ,y=filtered_df_tecn['qnt_trabalhadores'],showlegend = True, name = "Tecnologia")
-        layout = go.Layout(title = "Quantidade de trabalhadores por setor")
+        layout = go.Layout(title = "Quantidade de trabalhadores por setor e por ano")
         data = [trace_saude, trace_auto, trace_tech]
         fig = go.Figure(data=data,layout=layout)
         st.plotly_chart(fig)
@@ -162,13 +160,13 @@ def main():
                     marker_line_width=1.5, opacity=0.6)
         st.plotly_chart(fig)
 
-        st.markdown(""" ### Observamos tanto em números absolutos quanto relativos, o setor de SAÚDE demonstrou maior crescimento""")
+        st.markdown(""" Observamos nos gráficos acima que tanto em números absolutos quanto relativos, o setor de SAÚDE demonstrou o maior crescimento.""")
 
 
         st.markdown(""" ### Quarta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
-    A metodologia utilizada foi pegar os grandes grupos representativos de CNAE fornecido pelo governo brasileiro, a classificação pode ser encontada na aba CORRESPONDÊNCIA:
+    Foi utilizados como base os grandes grupos representativos de CNAE fornecido pelo governo brasileiro, a classificação pode ser encontada na aba CORRESPONDÊNCIA:
 
-    A sigla AASC corresponde ao setor ATIVIDADES ADMINISTRATIVAS E SERVIÇOS COMPLEMENTARES, o com mais trabalhadores neese cenário.
+    A sigla AASC corresponde ao setor ATIVIDADES ADMINISTRATIVAS E SERVIÇOS COMPLEMENTARES, o com mais trabalhadores nesse cenário.
     A sigla APDSS corresponde ao setor ADMINISTRAÇÃO PÚBLICA, DEFESA E SEGURIDADE SOCIAL, o segundo maior """)
 
         df_3 = dict_final['3_answer']
@@ -185,7 +183,7 @@ def main():
 
         trace_4 = go.Bar(x=x ,y=ADM_PUBLICA,showlegend = True, name = "AASC")
         trace__4 = go.Bar(x=x ,y=SERV_COMP,showlegend = True, name = 'APDSS')    
-        layout = go.Layout(title = "Qntd de trabalhadores com menos de 40h ṕor ano - Os 2 maiores setores ")
+        layout = go.Layout(title = "Qntd de trabalhadores com menos de 40h semanais  - Os 2 maiores setores ")
         data = [trace_4, trace__4]
         fig = go.Figure(data=data,layout=layout)
         st.plotly_chart(fig)
