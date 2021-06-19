@@ -11,8 +11,6 @@ escolaridade = {1: 'ANALFABETO',
  11: 'DOUTORADO',
  -1: 'IGNORADO'}
 
-
-
 range_cnaes = [("_".join(["0" + str(x) for x in range(1, 4)]),  "AGRICULTURA, PECUÁRIA, PRODUÇÃO FLORESTAL, PESCA E AQÜICULTURA"),
 ("_".join(["0" +  str(x) for x in range(5, 10)]),     "INDÚSTRIAS EXTRATIVAS"),
 ("_".join([str(x) for x in range(10, 34) ]), " INDÚSTRIAS DE TRANSFORMAÇÃO"),
