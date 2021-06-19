@@ -49,7 +49,7 @@ def retrive_files():
             if date in ['2018', '2019']:
                 df['estado'] = file.split('')[0].split('PUB_')[1]
             else:
-                df['estado'] = .split('.')[0][:2]
+                df['estado'] = file.split('.')[0][:2]
             exclude_empty_columns(df)
             send_to_s3(df, date, file_name)
             os.remove(file_name + '.txt') 
