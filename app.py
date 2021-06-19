@@ -158,7 +158,7 @@ def main():
 
 
         st.markdown(""" ### Quarta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
-    Foi utilizados como base os grandes grupos representativos de CNAE fornecido pelo governo brasileiro, a classificação pode ser encontada na aba CORRESPONDÊNCIA:
+    Foram utilizados como base os grandes grupos representativos de CNAE fornecido pelo governo brasileiro, a classificação pode ser encontada na aba CORRESPONDÊNCIA:
 
     A sigla AASC corresponde ao setor ATIVIDADES ADMINISTRATIVAS E SERVIÇOS COMPLEMENTARES, o com mais trabalhadores nesse cenário.
     A sigla APDSS corresponde ao setor ADMINISTRAÇÃO PÚBLICA, DEFESA E SEGURIDADE SOCIAL, o segundo maior """)
