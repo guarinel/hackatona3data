@@ -2,7 +2,7 @@
 
 ## Fluxo dos arquivos:
  - send_to_s3.py conecta com FTP do governo, extrai arquivos, converte para .parquet e coloca no s3 separado por ano.
- - query_athena.py é responsável por orgazinar a ordem e referência das querys no athena, conetar com os servicos AWS e salvar os dataframes com resultados finais.
+ - query_athena.py é responsável por orgazinar a ordem e referência das querys no athena, conectar com os servicos AWS e salvar os dataframes com resultados finais.
  - querys_sql.py são 3 grande views usadas como base para responder as 5 perguntas cada com uma query simples. Arquitetura das querys em cascata. 30min para calcular todo período.
  - app.py faz visualização e estrutura dash. 
  
