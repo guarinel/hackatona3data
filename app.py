@@ -181,22 +181,27 @@ TERMINAR""")
         print(df_3.loc[df_3['ano'] == ano].groupby('correspondencia_cnae').sum().sort_values(by = 'sum_less_than_forty').iloc[-2:])
 
 
-    st.markdown(""" ### Quinta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
-A metodologia utilizada foi pegar os grande nove grupos representados pelo primeiro digito do CNAE que são:
+    st.markdown(""" ### Quinta Pergunta: Número absoluto de pessoas nos últimos anos que realziaram trabalho intermitente.
+Foram considerados apenas os anos de 2018 e 2019 nesse cálculo, uma vez que os anos anteriores não vieram com essa informação discriminada. 
+Nos manuais do RAIS, apenas a partir de 2018 temos essa informação. Dependendo da necessidade específica, uma métrica similar pode ser calculada, tal como:
 
-* CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
-* CNAE 2002 dentro do range 86 e 87 no de indústria automobilística;
+* Pessoas em trabalho temporário;
+* Pessoas com apenas 1h informada de trabalho por semana (extender o padrão 2018/2019 para todos);
 * CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.
 
 TERMINAR""")
 
-    df_3 = dict_final['3_answer']
-    for tuple_ in range_cnaes:
-        df_3.loc[df_3['cnae_d'].isin([int(x) for x in tuple_[0].split('_')]), 'correspondencia_cnae'] = tuple_[1]
+    df_4 = dict_final['4_answer']
 
-    for ano in df['ano'].unique():
-        print(df_3.loc[df_3['ano'] == ano].groupby('correspondencia_cnae').sum().sort_values(by = 'sum_less_than_forty').iloc[-2:])
+    df_men = df_4[df_4['Sexo Trabalhador'] == 1]
+    df_women = df_4[df_4['Sexo Trabalhador'] == 2]
 
+    trace = go.Bar(x=df_men['ano'] ,y=df_men['soma_intermitente'],showlegend = True, name = "Homen")
+    trace_ = go.Bar(x=df_women['ano'] ,y=df_women['soma_intermitente'],showlegend = True, name = 'Mulher')
+    layout = go.Layout(title = "Qtd absoluta de pessoas que realizaram trabalho intermitente nos últimos 2 anos")
+    data = [trace, trace_]
+    fig = go.Figure(data=data,layout=layout)
+    st.plotly_chart(fig)
 
 
 if __name__ == '__main__':
