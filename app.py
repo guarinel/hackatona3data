@@ -26,6 +26,7 @@ def main():
     option = st.sidebar.selectbox("Menu: ",
                                   ['Análise', 'Correspondência'])
     st.sidebar.markdown('* guarinel@outlook.com \n'
+                        '* Guilherme Dendena'
                         '* [LinkedIn](https://www.linkedin.com/in/luizguarinello/) - '
                         '[GitHub](https://github.com/guarinel')
 
