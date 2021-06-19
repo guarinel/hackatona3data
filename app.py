@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
+import plotly.express as px
 import seaborn as sns
 import streamlit as st
 from constantes import *
@@ -59,7 +60,7 @@ Gráfico inicialmente fixo no Sudeste, todas as regiões estão disponíveis par
 
     values = ['SUDESTE', 'CENTRO_OESTE', 'NORDESTE', 'NORTE', 'SUL'] #df['regiao'].unique()
 
-    selected_values = st.selectbox("Selecione Região",values)
+    selected_values = st.selectbox("Selecione a região",values)
 
     filtered_df = df[df['regiao'] == selected_values]
 
@@ -87,7 +88,7 @@ Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para vi
     
     values_ = [ 'SUL' , 'SUDESTE', 'CENTRO_OESTE', 'NORDESTE', 'NORTE']
 
-    selected_values = st.selectbox("Selecione Região",values_)
+    selected_values = st.selectbox("Selecione a região",values_)
 
     filtered_df = df_1[df_1['regiao'] == selected_values]
 
@@ -99,6 +100,69 @@ Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para vi
     data = [trace]
     fig = go.Figure(data=data,layout=layout)
     st.plotly_chart(fig)
+
+    st.markdown(""" ### Terceira Pergunta: Entre os setores de tecnologia, industria automobilistica e profissionais da saude, qual teve o maior crescimento? Quantidade de trabalhadores por ano.
+A metodologia utilizada foi:
+
+* CNAE 2002 dentro do range 62 e 63 no setor de tecnologia;
+* CNAE 2002 dentro do range 86 e 87 no de indústria automobilística;
+* CNAE 2002 dentro do range 45 como profissionais da saúde, todos podendo variar dependendo da necessidade específica.
+
+Gráfico inicialmente fixo no SUL, todas as regiões estão disponíveis para visualização""")
+
+    df_2 = dict_final['2_answer']
+    df_2['diff_admi_demi'] = df_2['soma_admissao'] + df_2['soma_demissao'] 
+
+    
+    filtered_df_auto = df_2[df_2['setor'] == 'Automobilistica']
+    qntd_abs_auto = filtered_df_auto.loc[filtered_df_auto['setor'] == 'Automobilistica'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] - \
+    filtered_df_auto.loc[filtered_df_auto['setor'] == 'Automobilistica'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]
+    qntd_rel_auto = (filtered_df_auto.loc[filtered_df_auto['setor'] == 'Automobilistica'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] / \
+    filtered_df_auto.loc[filtered_df_auto['setor'] == 'Automobilistica'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]) - 1 
+
+    filtered_df_saude = df_2[df_2['setor'] == 'Saude']
+    qntd_abs_saude = filtered_df_saude.loc[filtered_df_saude['setor'] == 'Saude'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] - \
+    filtered_df_saude.loc[filtered_df_saude['setor'] == 'Saude'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]
+    qntd_rel_saude = (filtered_df_saude.loc[filtered_df_saude['setor'] == 'Saude'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] / \
+    filtered_df_saude.loc[filtered_df_saude['setor'] == 'Saude'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]) - 1 
+
+    filtered_df_tecn = df_2[df_2['setor'] == 'Tecnologia']
+    qntd_abs_tech = filtered_df_tecn.loc[filtered_df_tecn['setor'] == 'Tecnologia'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] - \
+    filtered_df_tecn.loc[filtered_df_tecn['setor'] == 'Tecnologia'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]
+    qntd_rel_tech = (filtered_df_tecn.loc[filtered_df_tecn['setor'] == 'Tecnologia'].groupby('ano').sum().loc[2019]['qnt_trabalhadores'] / \
+    filtered_df_tecn.loc[filtered_df_tecn['setor'] == 'Tecnologia'].groupby('ano').sum().loc[2010][['qnt_trabalhadores']][0]) - 1 
+
+
+    trace_saude = go.Bar(x=filtered_df_saude['ano'] ,y=filtered_df_saude['qnt_trabalhadores'],showlegend = True, name = "Saude")
+    trace_auto = go.Bar(x=filtered_df_auto['ano'] ,y=filtered_df_auto['qnt_trabalhadores'],showlegend = True, name = "Automobilistica")
+    trace_tech = go.Bar(x=filtered_df_tecn['ano'] ,y=filtered_df_tecn['qnt_trabalhadores'],showlegend = True, name = "Tecnologia")
+    layout = go.Layout(title = "Quantidade de trabalhadores por setor")
+    data = [trace_saude, trace_auto, trace_tech]
+    fig = go.Figure(data=data,layout=layout)
+    st.plotly_chart(fig)
+
+
+    values_abs_setores = [qntd_abs_saude, qntd_abs_auto, qntd_abs_tech]
+    values_rel_setores = [qntd_rel_saude, qntd_rel_auto, qntd_rel_tech]
+
+
+    trace_saude_asb = go.Bar(x=['Saúde', 'Automobilístico', 'Tecnologia'] ,y=values_abs_setores,showlegend = True, name = "Crescimento Absoluto")
+
+    layout = go.Layout(title = "Crescimento absoluto em número de trabalhadores entre 2010 e 2019")
+    data = [trace_saude_asb]
+    fig = go.Figure(data=data,layout=layout)
+    st.plotly_chart(fig)
+    
+    trace_auto_rel = go.Bar(x=['Saúde', 'Automobilístico', 'Tecnologia'] ,y=[100*x for x in values_rel_setores],showlegend = True, name = "Automobilistica")
+    layout = go.Layout(title = "Crescimento relativo (em %) do número de trabalhadores entre 2010 e 2019")
+    data = [trace_auto_rel]
+    fig = go.Figure(data=data,layout=layout)
+    fig.update_traces(marker_color='rgb(158,202,225)', marker_line_color='rgb(8,48,107)',
+                  marker_line_width=1.5, opacity=0.6)
+    st.plotly_chart(fig)
+
+    st.markdown(""" ### Observamos tanto em números absolutos quanto relativos, o setor de saúde demonstrou maior crescimento""")
+
 
 if __name__ == '__main__':
     main()
