@@ -154,7 +154,7 @@ def main():
         fig = go.Figure(data=data,layout=layout)
         st.plotly_chart(fig)
         
-        trace_auto_rel = go.Bar(x=['Saúde', 'Automobilístico', 'Tecnologia'] ,y=[100*x for x in values_rel_setores],showlegend = True, name = "Automobilistica")
+        trace_auto_rel = go.Bar(x=['Saúde', 'Automobilístico', 'Tecnologia'] ,y=[100*x for x in values_rel_setores],showlegend = True, name = "Automobilística")
         layout = go.Layout(title = "Crescimento relativo (em %) do número de trabalhadores entre 2010 e 2019")
         data = [trace_auto_rel]
         fig = go.Figure(data=data,layout=layout)
@@ -162,7 +162,7 @@ def main():
                     marker_line_width=1.5, opacity=0.6)
         st.plotly_chart(fig)
 
-        st.markdown(""" ### Observamos tanto em números absolutos quanto relativos, o setor de saúde demonstrou maior crescimento""")
+        st.markdown(""" ### Observamos tanto em números absolutos quanto relativos, o setor de SAÚDE demonstrou maior crescimento""")
 
 
         st.markdown(""" ### Quarta Pergunta: Nos últimos 10 anos quais foram os setores com o maior número de trabalhadores que possuem jornada semanal inferior a 40h.
@@ -197,9 +197,7 @@ def main():
     Nos manuais do RAIS, apenas a partir de 2018 temos essa informação. Dependendo da necessidade específica, uma métrica similar pode ser calculada, tal como:
 
     * Pessoas em trabalho temporário;
-    * Pessoas com apenas 1h informada de trabalho por semana (extender o padrão 2018/2019 para todos);
-
-    TERMINAR""")
+    * Pessoas com apenas 1h informada de trabalho por semana (extender o padrão 2018/2019 para todos);""")
 
         df_4 = dict_final['4_answer']
 
@@ -237,9 +235,7 @@ def main():
 * 90, 91, 92, 93,  ARTES, CULTURA, ESPORTE E RECREAÇÃO
 * 94, 95, 96,  OUTRAS ATIVIDADES DE SERVIÇOS
 * 97,  SERVIÇOS DOMÉSTICOS
-* 99, ORGANISMOS INTERNACIONAIS E OUTRAS INSTITUIÇÕES EXTRATERRITORIAIS
-
-TERMINAR""")
+* 99, ORGANISMOS INTERNACIONAIS E OUTRAS INSTITUIÇÕES EXTRATERRITORIAIS""")
 
 
 if __name__ == '__main__':
