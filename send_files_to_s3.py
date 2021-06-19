@@ -50,7 +50,7 @@ def retrive_files():
                 df['estado'] = file.split('')[0].split('PUB_')[1]
             else:
                 df['estado'] = file.split('.')[0][:2]
-            exclude_empty_columns(df)
+            #exclude_empty_columns(df) Limpeza mais rapido por SQL
             send_to_s3(df, date, file_name)
             os.remove(file_name + '.txt') 
             keep_connection_alive(date)
