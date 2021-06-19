@@ -47,10 +47,13 @@ def retrive_files():
             file_name = file.split('.')[0]
             df = pd.read_csv(file_name + '.txt', sep = ';', encoding='latin-1', low_memory=False, dtype = 'unicode')
             if date in ['2018', '2019']:
-                df['estado'] = file.split('')[0].split('PUB_')[1]
+                try:
+                    df['estado'] = file.split('.')[0].split('PUB_')[1]      
+                except:
+                    print('Informacao de estabelecimento, nao compete as perguntas do desafio')
             else:
                 df['estado'] = file.split('.')[0][:2]
-            #exclude_empty_columns(df) Limpeza mais rapido por SQL
+            #exclude_empty_columns(df) Limpeza mais rapido por SQL - Foi feito em SQL para os ultimos anos
             send_to_s3(df, date, file_name)
             os.remove(file_name + '.txt') 
             keep_connection_alive(date)
