@@ -106,7 +106,7 @@ if __name__ == "__main__":
         Segundo parametro é o ano;
         Terceiro parametro é a table original que vem o FROM;
         False indica se é para baixar o resultado .csv do s3;
-        O argumento último é o path caso tenha q salvar 
+        O último argumento é o path caso tenha q salvar o arquivo no s3.
 
         As 3 primeiras querys são as views, e as últimas 5 são querys simples, 
         completamente agrupadas para responder as perguntas do hackaton.
