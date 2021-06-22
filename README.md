@@ -1,4 +1,4 @@
-# hackatona3data
+# hackaton a3data
 
 ## Equipe Mordor
 
@@ -16,6 +16,10 @@ Python foi usada para conexões entre serviços, automação de processos, anál
 Foi feita uma análise exploratória dos dados em python, com objetivo de entender a documentação e projetar os serviços necessários. Todo estudo foi relizados apenas em cima do Acre (ou região Norte) em cada um dos diferentes layouts, permitindo que generalizassemos os processos sem necessidade de custo extra com computação.
 
 A dashborad pode ser encontrada em https://dash-a3datahackaton.herokuapp.com/.
+
+Pitch: https://www.youtube.com/watch?v=LNH9sCa6C1o
+
+Demo: https://www.youtube.com/watch?v=Ue6PisebO8g
 
 Luiz Guarinello
 
